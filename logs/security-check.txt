@@ -1,0 +1,10 @@
+SECURITY CHECKLIST
+
+[ ] Firewall Enabled
+[ ] SSH Hardened
+[ ] Fail2Ban Running
+[ ] ClamAV Updated
+[ ] System Updated
+[ ] Backup Created
+[ ] Root Login Disabled
+[ ] Unused Port Closed
