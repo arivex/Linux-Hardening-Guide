@@ -1,0 +1,18 @@
+# SSH HARDENING
+
+sudo nano /etc/ssh/sshd_config
+
+# CHANGE:
+PermitRootLogin no
+PasswordAuthentication no
+PermitEmptyPasswords no
+PubkeyAuthentication yes
+MaxAuthTries 3
+
+# RESTART SSH
+
+Ubuntu:
+sudo systemctl restart ssh
+
+Rocky:
+sudo systemctl restart sshd
