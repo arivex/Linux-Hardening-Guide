@@ -1,1 +1,72 @@
 
+body{
+    background:#0f172a;
+    color:#e2e8f0;
+    font-family:Arial;
+    padding:20px;
+}
+
+h1{
+    color:#38bdf8;
+}
+
+h2{
+    color:#f8fafc;
+}
+
+.card{
+    background:#111827;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+    border:1px solid #334155;
+    box-shadow:0 0 15px rgba(0,0,0,0.3);
+}
+
+details{
+    margin-left:20px;
+    margin-top:10px;
+    background:#1e293b;
+    border-radius:8px;
+    padding:10px;
+    border:1px solid #334155;
+}
+
+summary{
+    cursor:pointer;
+    color:#facc15;
+    font-weight:bold;
+    font-size:15px;
+}
+
+pre{
+    background:#020617;
+    color:#22c55e;
+    padding:15px;
+    border-radius:8px;
+    overflow:auto;
+    margin-top:10px;
+}
+
+button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:10px 14px;
+    border-radius:6px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#475569;
+    border-radius:10px;
+}
