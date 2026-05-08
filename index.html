@@ -1,69 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Linux Hardening Guide</title>
 
-<style>
+<link rel="stylesheet" href="assets/style.css">
 
-body{
-    background:#0f172a;
-    color:#e2e8f0;
-    font-family:Arial;
-    padding:20px;
-}
-
-h1{
-    color:#38bdf8;
-}
-
-.card{
-    background:#111827;
-    padding:20px;
-    border-radius:10px;
-    margin-bottom:20px;
-    border:1px solid #334155;
-}
-
-details{
-    margin-left:20px;
-    margin-top:10px;
-    background:#1e293b;
-    border-radius:8px;
-    padding:10px;
-}
-
-summary{
-    cursor:pointer;
-    color:#facc15;
-    font-weight:bold;
-}
-
-pre{
-    background:#020617;
-    color:#22c55e;
-    padding:15px;
-    border-radius:8px;
-    overflow:auto;
-}
-
-button{
-    background:#2563eb;
-    color:white;
-    border:none;
-    padding:10px;
-    border-radius:6px;
-    cursor:pointer;
-    margin-bottom:10px;
-}
-
-button:hover{
-    background:#1d4ed8;
-}
-
-</style>
 </head>
 
 <body>
@@ -77,13 +22,17 @@ button:hover{
 <details open>
 <summary>Linux-Hardening-Guide</summary>
 
+    <!-- DOCS -->
+
     <details>
     <summary>📁 docs</summary>
 
         <details>
         <summary>📄 linux-basic-command.txt</summary>
 
-<button onclick="copyText('linuxcmd')">Copy Command</button>
+<button onclick="copyText('linuxcmd')">
+Copy Command
+</button>
 
 <pre id="linuxcmd">
 # SYSTEM INFO
@@ -103,6 +52,7 @@ lsblk
 # NETWORK
 ip a
 ss -tulnp
+netstat -tulnp
 
 # USER LOGIN
 who
@@ -112,7 +62,7 @@ last
 # FAILED LOGIN
 sudo lastb
 
-# RUNNING PROCESS
+# PROCESS
 ps aux
 
 # FIREWALL
@@ -123,19 +73,14 @@ sudo firewall-cmd --list-all
         </details>
 
         <details>
-        <summary>📄 ssh-hardening.txt</summary>
+        <summary>📄 incident-response.txt</summary>
 
-<button onclick="copyText('sshcmd')">Copy SSH Config</button>
-
-<pre id="sshcmd">
-sudo nano /etc/ssh/sshd_config
-
-PermitRootLogin no
-PasswordAuthentication no
-PubkeyAuthentication yes
-PermitEmptyPasswords no
-
-sudo systemctl restart ssh
+<pre>
+1. IDENTIFY
+2. CONTAIN
+3. ERADICATE
+4. RECOVERY
+5. LESSON LEARNED
 </pre>
 
         </details>
@@ -145,11 +90,8 @@ sudo systemctl restart ssh
 
 <pre>
 sudo apt install fail2ban -y
-
 sudo systemctl enable fail2ban
 sudo systemctl start fail2ban
-
-sudo fail2ban-client status
 </pre>
 
         </details>
@@ -159,15 +101,31 @@ sudo fail2ban-client status
 
 <pre>
 sudo apt install clamav clamav-daemon -y
-
 sudo freshclam
-
 sudo clamscan -r /
 </pre>
 
         </details>
 
+        <details>
+        <summary>📄 ssh-hardening.txt</summary>
+
+<button onclick="copyText('sshcmd')">
+Copy SSH Config
+</button>
+
+<pre id="sshcmd">
+PermitRootLogin no
+PasswordAuthentication no
+PermitEmptyPasswords no
+PubkeyAuthentication yes
+</pre>
+
+        </details>
+
     </details>
+
+    <!-- SCRIPTS -->
 
     <details>
     <summary>📁 scripts</summary>
@@ -179,13 +137,19 @@ sudo clamscan -r /
 #!/bin/bash
 
 sudo apt update && sudo apt upgrade -y
+sudo apt install ufw fail2ban htop -y
+</pre>
 
-sudo apt install ufw fail2ban htop net-tools -y
+        </details>
 
-sudo ufw allow OpenSSH
-sudo ufw enable
+        <details>
+        <summary>📄 rocky-hardening.sh</summary>
 
-sudo systemctl enable fail2ban
+<pre>
+#!/bin/bash
+
+sudo dnf update -y
+sudo dnf install firewalld fail2ban -y
 </pre>
 
         </details>
@@ -194,29 +158,61 @@ sudo systemctl enable fail2ban
         <summary>📄 firewall-basic.sh</summary>
 
 <pre>
-#!/bin/bash
-
 sudo ufw default deny incoming
-sudo ufw default allow outgoing
-
 sudo ufw allow ssh
 sudo ufw enable
 </pre>
 
         </details>
 
+        <details>
+        <summary>📄 check-security.sh</summary>
+
+<pre>
+ss -tulnp
+lastb
+ps aux
+</pre>
+
+        </details>
+
     </details>
+
+    <!-- LOGS -->
 
     <details>
     <summary>📁 logs</summary>
 
         <details>
+        <summary>📄 audit-log.txt</summary>
+
+<pre>
+DATE:
+SERVER:
+ISSUE:
+ACTION:
+</pre>
+
+        </details>
+
+        <details>
+        <summary>📄 firewall-log.txt</summary>
+
+<pre>
+BLOCKED IP:
+PORT:
+DATE:
+</pre>
+
+        </details>
+
+        <details>
         <summary>📄 security-check.txt</summary>
 
 <pre>
-sudo journalctl -p 3 -xb
-sudo lastb
-sudo ss -tulnp
+[ ] Firewall Enabled
+[ ] SSH Hardened
+[ ] Fail2Ban Active
 </pre>
 
         </details>
