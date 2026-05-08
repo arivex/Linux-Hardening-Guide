@@ -1,0 +1,26 @@
+INCIDENT RESPONSE CHECKLIST
+
+1. IDENTIFY
+- Check unusual login
+- Check open ports
+- Check suspicious process
+
+2. CONTAIN
+- Disconnect network
+- Disable suspicious account
+- Block attacker IP
+
+3. ERADICATE
+- Remove malware
+- Kill malicious process
+- Patch vulnerability
+
+4. RECOVERY
+- Restore backup
+- Monitor logs
+- Re-enable services
+
+5. LESSON LEARNED
+- Document incident
+- Improve firewall
+- Improve monitoring
