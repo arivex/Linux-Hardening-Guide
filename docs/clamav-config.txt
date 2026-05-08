@@ -1,0 +1,16 @@
+# INSTALL CLAMAV
+
+Ubuntu:
+sudo apt install clamav clamav-daemon -y
+
+Rocky Linux:
+sudo dnf install clamav clamav-update -y
+
+# UPDATE DATABASE
+sudo freshclam
+
+# SCAN
+sudo clamscan -r /
+
+# SCAN HOME
+sudo clamscan -r /home
