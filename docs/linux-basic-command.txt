@@ -1,1 +1,40 @@
 
+# SYSTEM INFO
+uname -a
+hostnamectl
+uptime
+
+# CPU & MEMORY
+top
+htop
+free -h
+
+# STORAGE
+df -h
+lsblk
+
+# NETWORK
+ip a
+ss -tulnp
+netstat -tulnp
+
+# USER LOGIN
+who
+w
+last
+
+# FAILED LOGIN
+sudo lastb
+
+# PROCESS
+ps aux
+
+# FIREWALL
+sudo ufw status
+sudo firewall-cmd --list-all
+
+# SERVICES
+systemctl list-units --type=service
+
+# JOURNAL LOG
+journalctl -xe
