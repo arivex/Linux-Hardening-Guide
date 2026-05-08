@@ -1,0 +1,18 @@
+# INSTALL FAIL2BAN
+
+Ubuntu:
+sudo apt install fail2ban -y
+
+Rocky Linux:
+sudo dnf install epel-release -y
+sudo dnf install fail2ban -y
+
+# ENABLE SERVICE
+sudo systemctl enable fail2ban
+sudo systemctl start fail2ban
+
+# STATUS
+sudo fail2ban-client status
+
+# CONFIG
+sudo nano /etc/fail2ban/jail.local
