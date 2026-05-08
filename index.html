@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Linux Hardening Guide</title>
+
+<style>
+
+body{
+    background:#0f172a;
+    color:#e2e8f0;
+    font-family:Arial;
+    padding:20px;
+}
+
+h1{
+    color:#38bdf8;
+}
+
+.card{
+    background:#111827;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+    border:1px solid #334155;
+}
+
+details{
+    margin-left:20px;
+    margin-top:10px;
+    background:#1e293b;
+    border-radius:8px;
+    padding:10px;
+}
+
+summary{
+    cursor:pointer;
+    color:#facc15;
+    font-weight:bold;
+}
+
+pre{
+    background:#020617;
+    color:#22c55e;
+    padding:15px;
+    border-radius:8px;
+    overflow:auto;
+}
+
+button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:10px;
+    border-radius:6px;
+    cursor:pointer;
+    margin-bottom:10px;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🛡 Linux Hardening Guide</h1>
+
+<div class="card">
+
+<h2>📁 Project Structure</h2>
+
+<details open>
+<summary>Linux-Hardening-Guide</summary>
+
+    <details>
+    <summary>📁 docs</summary>
+
+        <details>
+        <summary>📄 linux-basic-command.txt</summary>
+
+<button onclick="copyText('linuxcmd')">Copy Command</button>
+
+<pre id="linuxcmd">
+# SYSTEM INFO
+uname -a
+hostnamectl
+uptime
+
+# CPU & MEMORY
+top
+htop
+free -h
+
+# STORAGE
+df -h
+lsblk
+
+# NETWORK
+ip a
+ss -tulnp
+
+# USER LOGIN
+who
+w
+last
+
+# FAILED LOGIN
+sudo lastb
+
+# RUNNING PROCESS
+ps aux
+
+# FIREWALL
+sudo ufw status
+sudo firewall-cmd --list-all
+</pre>
+
+        </details>
+
+        <details>
+        <summary>📄 ssh-hardening.txt</summary>
+
+<button onclick="copyText('sshcmd')">Copy SSH Config</button>
+
+<pre id="sshcmd">
+sudo nano /etc/ssh/sshd_config
+
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+PermitEmptyPasswords no
+
+sudo systemctl restart ssh
+</pre>
+
+        </details>
+
+        <details>
+        <summary>📄 fail2ban-config.txt</summary>
+
+<pre>
+sudo apt install fail2ban -y
+
+sudo systemctl enable fail2ban
+sudo systemctl start fail2ban
+
+sudo fail2ban-client status
+</pre>
+
+        </details>
+
+        <details>
+        <summary>📄 clamav-config.txt</summary>
+
+<pre>
+sudo apt install clamav clamav-daemon -y
+
+sudo freshclam
+
+sudo clamscan -r /
+</pre>
+
+        </details>
+
+    </details>
+
+    <details>
+    <summary>📁 scripts</summary>
+
+        <details>
+        <summary>📄 ubuntu-hardening.sh</summary>
+
+<pre>
+#!/bin/bash
+
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install ufw fail2ban htop net-tools -y
+
+sudo ufw allow OpenSSH
+sudo ufw enable
+
+sudo systemctl enable fail2ban
+</pre>
+
+        </details>
+
+        <details>
+        <summary>📄 firewall-basic.sh</summary>
+
+<pre>
+#!/bin/bash
+
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+sudo ufw allow ssh
+sudo ufw enable
+</pre>
+
+        </details>
+
+    </details>
+
+    <details>
+    <summary>📁 logs</summary>
+
+        <details>
+        <summary>📄 security-check.txt</summary>
+
+<pre>
+sudo journalctl -p 3 -xb
+sudo lastb
+sudo ss -tulnp
+</pre>
+
+        </details>
+
+    </details>
+
+</details>
+
+</div>
+
+<script>
+
+function copyText(id){
+
+    const text =
+    document.getElementById(id).innerText;
+
+    navigator.clipboard.writeText(text);
+
+    alert("Copied!");
+}
+
+</script>
+
+</body>
+</html>
