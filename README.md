@@ -18,10 +18,4 @@ Personal Linux Security & Hardening Documentation
 
 Open:
 
-index.html
-
-Or use GitHub Pages.
-
-## Author
-
-dataitoc
+arivex.github.io/Linux-Hardening-Guide/
