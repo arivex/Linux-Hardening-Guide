@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,29 +8,167 @@
 
 <link rel="stylesheet" href="assets/style.css">
 
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0f172a;
+    color:#e2e8f0;
+    font-family:Arial, sans-serif;
+    display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:260px;
+    height:100vh;
+    background:#111827;
+    border-right:1px solid #334155;
+    padding:20px;
+    position:fixed;
+    overflow:auto;
+}
+
+.sidebar h2{
+    color:#38bdf8;
+    margin-bottom:20px;
+}
+
+.sidebar a{
+    display:block;
+    color:#cbd5e1;
+    text-decoration:none;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:8px;
+    transition:0.2s;
+}
+
+.sidebar a:hover{
+    background:#1e293b;
+    color:#38bdf8;
+}
+
+/* CONTENT */
+
+.content{
+    margin-left:260px;
+    padding:30px;
+    width:100%;
+}
+
+h1{
+    color:#38bdf8;
+    margin-bottom:20px;
+}
+
+.card{
+    background:#111827;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:25px;
+    border:1px solid #334155;
+}
+
+.card h2{
+    margin-bottom:15px;
+    color:#facc15;
+}
+
+details{
+    margin-top:10px;
+    background:#1e293b;
+    border-radius:8px;
+    padding:10px;
+}
+
+summary{
+    cursor:pointer;
+    font-weight:bold;
+    color:#f8fafc;
+}
+
+pre{
+    background:#020617;
+    color:#22c55e;
+    padding:15px;
+    border-radius:8px;
+    overflow:auto;
+    margin-top:10px;
+}
+
+button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:10px 14px;
+    border-radius:6px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .sidebar{
+        width:100%;
+        height:auto;
+        position:relative;
+    }
+
+    .content{
+        margin-left:0;
+    }
+
+    body{
+        display:block;
+    }
+}
+
+</style>
 </head>
 
 <body>
 
-<h1>🛡 Linux Hardening Guide</h1>
+<!-- SIDEBAR -->
 
-<div class="card">
+<div class="sidebar">
 
-<h2>📁 Project Structure</h2>
+<h2>🛡 Linux Guide</h2>
 
-<details open>
-<summary>Linux-Hardening-Guide</summary>
+<a href="#overview">🏠 Overview</a>
+<a href="#basiccmd">💻 Linux Commands</a>
+<a href="#ssh">🔐 SSH Hardening</a>
+<a href="#fail2ban">🚫 Fail2Ban</a>
+<a href="#clamav">🦠 ClamAV</a>
+<a href="#scripts">⚙ Scripts</a>
+<a href="#logs">📄 Logs</a>
 
-    <!-- DOCS -->
+</div>
 
-    <details>
-    <summary>📁 docs</summary>
+<!-- CONTENT -->
 
-        <details>
-        <summary>📄 linux-basic-command.txt</summary>
+<div class="content">
+
+<h1 id="overview">Linux Hardening Guide</h1>
+
+<div class="card" id="basiccmd">
+
+<h2>💻 Linux Basic Commands</h2>
 
 <button onclick="copyText('linuxcmd')">
-Copy Command
+Copy Commands
 </button>
 
 <pre id="linuxcmd">
@@ -52,7 +189,6 @@ lsblk
 # NETWORK
 ip a
 ss -tulnp
-netstat -tulnp
 
 # USER LOGIN
 who
@@ -62,164 +198,92 @@ last
 # FAILED LOGIN
 sudo lastb
 
-# PROCESS
+# RUNNING PROCESS
 ps aux
-
-# FIREWALL
-sudo ufw status
-sudo firewall-cmd --list-all
 </pre>
 
-        </details>
+</div>
 
-        <details>
-        <summary>📄 incident-response.txt</summary>
+<div class="card" id="ssh">
 
-<pre>
-1. IDENTIFY
-2. CONTAIN
-3. ERADICATE
-4. RECOVERY
-5. LESSON LEARNED
-</pre>
-
-        </details>
-
-        <details>
-        <summary>📄 fail2ban-config.txt</summary>
-
-<pre>
-sudo apt install fail2ban -y
-sudo systemctl enable fail2ban
-sudo systemctl start fail2ban
-</pre>
-
-        </details>
-
-        <details>
-        <summary>📄 clamav-config.txt</summary>
-
-<pre>
-sudo apt install clamav clamav-daemon -y
-sudo freshclam
-sudo clamscan -r /
-</pre>
-
-        </details>
-
-        <details>
-        <summary>📄 ssh-hardening.txt</summary>
+<h2>🔐 SSH Hardening</h2>
 
 <button onclick="copyText('sshcmd')">
 Copy SSH Config
 </button>
 
 <pre id="sshcmd">
+sudo nano /etc/ssh/sshd_config
+
 PermitRootLogin no
 PasswordAuthentication no
-PermitEmptyPasswords no
 PubkeyAuthentication yes
+PermitEmptyPasswords no
+
+sudo systemctl restart ssh
 </pre>
 
-        </details>
+</div>
 
-    </details>
+<div class="card" id="fail2ban">
 
-    <!-- SCRIPTS -->
+<h2>🚫 Fail2Ban Config</h2>
 
-    <details>
-    <summary>📁 scripts</summary>
+<pre>
+sudo apt install fail2ban -y
 
-        <details>
-        <summary>📄 ubuntu-hardening.sh</summary>
+sudo systemctl enable fail2ban
+sudo systemctl start fail2ban
+
+sudo fail2ban-client status
+</pre>
+
+</div>
+
+<div class="card" id="clamav">
+
+<h2>🦠 ClamAV Config</h2>
+
+<pre>
+sudo apt install clamav clamav-daemon -y
+
+sudo freshclam
+
+sudo clamscan -r /
+</pre>
+
+</div>
+
+<div class="card" id="scripts">
+
+<h2>⚙ Hardening Script</h2>
 
 <pre>
 #!/bin/bash
 
 sudo apt update && sudo apt upgrade -y
-sudo apt install ufw fail2ban htop -y
-</pre>
 
-        </details>
+sudo apt install ufw fail2ban htop net-tools -y
 
-        <details>
-        <summary>📄 rocky-hardening.sh</summary>
-
-<pre>
-#!/bin/bash
-
-sudo dnf update -y
-sudo dnf install firewalld fail2ban -y
-</pre>
-
-        </details>
-
-        <details>
-        <summary>📄 firewall-basic.sh</summary>
-
-<pre>
-sudo ufw default deny incoming
-sudo ufw allow ssh
+sudo ufw allow OpenSSH
 sudo ufw enable
+
+sudo systemctl enable fail2ban
 </pre>
 
-        </details>
+</div>
 
-        <details>
-        <summary>📄 check-security.sh</summary>
+<div class="card" id="logs">
+
+<h2>📄 Security Logs</h2>
 
 <pre>
-ss -tulnp
-lastb
-ps aux
+sudo journalctl -p 3 -xb
+sudo lastb
+sudo ss -tulnp
 </pre>
 
-        </details>
-
-    </details>
-
-    <!-- LOGS -->
-
-    <details>
-    <summary>📁 logs</summary>
-
-        <details>
-        <summary>📄 audit-log.txt</summary>
-
-<pre>
-DATE:
-SERVER:
-ISSUE:
-ACTION:
-</pre>
-
-        </details>
-
-        <details>
-        <summary>📄 firewall-log.txt</summary>
-
-<pre>
-BLOCKED IP:
-PORT:
-DATE:
-</pre>
-
-        </details>
-
-        <details>
-        <summary>📄 security-check.txt</summary>
-
-<pre>
-[ ] Firewall Enabled
-[ ] SSH Hardened
-[ ] Fail2Ban Active
-</pre>
-
-        </details>
-
-    </details>
-
-</details>
+</div>
 
 </div>
 
